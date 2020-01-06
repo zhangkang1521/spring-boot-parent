@@ -1,0 +1,7 @@
+#ignore file
+target
+.project
+.settings
+.classpath
+.idea
+*.iml
