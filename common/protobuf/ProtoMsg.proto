@@ -1,0 +1,51 @@
+syntax = "proto3";
+package org.zk.common.beans.msg;
+
+message Message {
+    HeadType       type = 1; //通用字段: 消息类型
+    uint64         sequence = 2;  //通用字段：消息序列号
+    string         session_id = 3;   //通用字段：会话id
+    LoginRequest   loginRequest = 4;   //登录请求
+    LoginResponse   loginResponse = 5;   //登录响应
+    ChatRequest   chatRequest = 6; // 聊天请求
+    ChatResponse   chatResponse = 7; // 聊天响应
+    HeartBeatRequest   heartBeatRequest = 8; // 心跳请求
+}
+
+enum HeadType
+{
+  LOGIN_REQUEST = 0;//登陆请求（必须从0开始，否则报错）
+  LOGIN_RESPONSE = 1;//登录响应
+  CHAT_REQUEST = 2;//聊天请求
+  CHAT_RESPONSE = 3;//聊天响应
+  HEART_BEAT = 4;//心跳
+}
+
+message LoginRequest {
+    string uid = 1;   // 用户唯一id
+    string password = 2;  // 设备ID
+}
+
+message LoginResponse {
+    bool result = 1;  //true表示发送成功，false表示发送失败
+    uint32 code = 2;  //错误码
+    string info = 3;  //错误描述
+}
+
+message ChatRequest {
+    string fromUid = 1; // 发送人
+    string toUid = 2;   // 接收人
+    string content = 3;  // 消息内容
+}
+
+message ChatResponse {
+    string fromUid = 1; // 发送人
+    string toUid = 2;   // 接收人
+    string content = 3;  // 消息内容
+}
+
+message HeartBeatRequest {
+    string uid = 1; // 发送人
+}
+
+
